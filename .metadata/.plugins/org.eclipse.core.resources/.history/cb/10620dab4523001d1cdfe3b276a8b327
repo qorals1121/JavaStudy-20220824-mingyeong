@@ -1,0 +1,34 @@
+package com.servlet.study.web.servlet;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/content/type")
+public class ContentTypeServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public ContentTypeServlet() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("application/json");
+		
+		response.getWriter().print("{\"name\":\"junil\"}");
+
+//		response.getWriter().print("<html>");
+//		response.getWriter().print("<head>");
+//		response.getWriter().print("<title>contentType</title>");
+//		response.getWriter().print("</head>");
+//		response.getWriter().print("<body>");
+//		response.getWriter().print("<h1>ContentType test!</h1>");
+//		response.getWriter().print("</body>");
+//		response.getWriter().print("</html>");
+	}
+
+}

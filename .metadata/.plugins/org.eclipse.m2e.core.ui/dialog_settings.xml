@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="wizardPage">
+		<list key="groupId">
+			<item value="ServletStudy-20220823-mingyeong"/>
+			<item value="JavaStudy_20220713_mingyeong"/>
+		</list>
+		<list key="name">
+			<item value="JavaStudy_20220713_mingyeong"/>
+		</list>
+		<list key="artifactId">
+			<item value="ServletStudy-20220823-mingyeong"/>
+			<item value="JavaStudy_20220713_mingyeong"/>
+		</list>
+		<list key="version">
+			<item value="1.0.0"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>
