@@ -26,10 +26,10 @@
 			alert("회원가입 성공.");
 			console.log(response);
 			document.querySelector("body").innerHTML = `
-				<h1>${respond.id}</h1>
-				<h1>${respond.pw}</h1>
-				<h1>${respond.name}</h1>
-				<h1>${respond.email}</h1>
+				<h1>${respond.userId}</h1>
+				<h1>${respond.userPassword}</h1>
+				<h1>${respond.userName}</h1>
+				<h1>${respond.user.Email}</h1>
 			`
 		},
 		error: (error) => {
