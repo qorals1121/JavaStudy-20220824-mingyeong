@@ -106,4 +106,8 @@ WHERE
  om.order_code > 1
  AND pm.product_price > 20000;
 	
-	
+DELETE
+FROM
+	user_mst
+WHERE
+	user_code = 4;
