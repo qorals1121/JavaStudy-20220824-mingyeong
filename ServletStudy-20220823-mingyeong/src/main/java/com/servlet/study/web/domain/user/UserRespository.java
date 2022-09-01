@@ -36,20 +36,16 @@ public class UserRespository {
 		try {
 			con = pool.getConnection();
 			sql = "SELECT\r\n"
-					+ "	om.order_code,\r\n"
-					+ "	om.order_user,\r\n"
+					+ "	um.user_code,\r\n"
 					+ "	um.user_id,\r\n"
-					+ "	om.order_product,\r\n"
-					+ "	pm.product_name,\r\n"
-					+ "	pm.product_category,\r\n"
-					+ "	cm.category_name,\r\n"
-					+ "	pm.product_price,\r\n"
-					+ "	om.order_datetime\r\n"
+					+ "	um.user_password,\r\n"
+					+ "	um.user_name,\r\n"
+					+ " um.user_email,\r\n"
+					+ "	ud.user_phone,\r\n"
+					+ "	ud.user_address\r\n"
 					+ "FROM\r\n"
-					+ "	order_mst om\r\n"
-					+ "LEFT OUTER JOIN user_mst um ON(um.user_code = om.order_user)\r\n"
-					+ "LEFT OUTER JOIN product_mst pm ON(pm.product_code = om.order_product)\r\n"
-					+ "LEFT OUTER JOIN category_mst cm ON(cm.category_code = pm.product_category);";
+					+ "	user_mst um\r\n"
+					+ "	LEFT OUTER JOIN user_dtl ud ON(ud.user_code = um.user_code);";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			rsmd = rs.getMetaData();
