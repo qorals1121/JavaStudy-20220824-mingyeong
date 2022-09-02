@@ -122,4 +122,4 @@ user_mstSELECT
 	ud.user_address
 FROM
 	user_mst um
-	LEFT OUTER JOIN user_dtl ud ON(ud.user_code = um.user_code);
+	LEFT OUTER JOIN user_dtl ud ON(ud.user_code = um.user_code);user_mst

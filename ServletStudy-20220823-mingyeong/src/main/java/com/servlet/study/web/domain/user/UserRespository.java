@@ -85,5 +85,63 @@ public class UserRespository {
 		
 		return list;
 	}
+	
+	public int checkUserId(String userId) {
+		String sql = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int result = 0;
+		
+		try {
+			con = pool.getConnection();
+			sql = "select count(*) from user_mst where user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId); // 1번 ?에 userId set
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+					
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}finally {
+			pool.freeConnection(con, pstmt, rs); // DB에 접근할 수 있겠금 연결을 도와줌.
+		}
+		
+		return result;
+	}
+	
+	public int save(User user) {
+		int result = 0;
+		String sql = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		// ResultSet는 select에만 사용한다.
+		
+		try {
+			con = pool.getConnection();
+			sql = "insert int user_mst values(0, ?, ?, ?, ?)"; // id password name email 순서대로 들어옴
+			pstmt = con.prepareStatement(sql); // 미완성된 sql을 담아서 pstmt에 담음
+			pstmt.setString(1, user.getUser_id());
+			pstmt.setString(2, user.getUser_password());
+			pstmt.setString(3, user.getUser_name());
+			pstmt.setString(4, user.getUser_email());
+			result = pstmt.executeUpdate(); //rs는 executeQuery로 받지만 int의 경우 executeUpdate로 받는다.
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+		}finally {
+			pool.freeConnection(con, pstmt);
+		}
+		
+		return result;
+	}
 
 }
