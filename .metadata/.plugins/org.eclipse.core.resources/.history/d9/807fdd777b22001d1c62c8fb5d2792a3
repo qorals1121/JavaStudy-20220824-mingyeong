@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="ServletStudy-20220823-mingyeong">
-        <property name="context-root" value="ServletStudy-20220823-mingyeong"/>
-        <property name="java-output-path" value="/ServletStudy-20220823-mingyeong/build/classes"/>
-    </wb-module>
-</project-modules>

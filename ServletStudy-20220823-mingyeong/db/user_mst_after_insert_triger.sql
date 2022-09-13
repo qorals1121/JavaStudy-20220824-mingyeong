@@ -2,4 +2,4 @@ BEGIN
 	INSERT into
 		USER dtl(user_code)
 		VALUES(NEW.user_code);
-END
+ENDuser_dtluser_mst_after_deleteuser_mst_after_insertuser_mst_after_deleteuser_mst_after_insertuser_mst

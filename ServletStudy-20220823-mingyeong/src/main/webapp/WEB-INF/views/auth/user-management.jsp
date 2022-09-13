@@ -33,6 +33,7 @@
 							<th>user_email</th>
 							<th>user_phone</th>
 							<th>user_address</th>
+							<th>update</th>
 							<th>delete</th>
 						</tr>
 					</thead>

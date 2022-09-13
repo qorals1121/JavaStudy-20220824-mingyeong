@@ -78,7 +78,7 @@ SET
 	user_id = 'juni2222'
 WHERE
 	user_code = (
-		select
+		SELECT
 			user_code
 		from
 			user_mst

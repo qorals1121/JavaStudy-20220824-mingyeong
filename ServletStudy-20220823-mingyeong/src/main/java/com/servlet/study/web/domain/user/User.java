@@ -3,8 +3,8 @@ package com.servlet.study.web.domain.user;
 import lombok.Builder;
 import lombok.Data;
 
-@Builder
 @Data
+@Builder
 public class User {
 	
 	private int user_code;

@@ -32,16 +32,68 @@ function getUserList(userList) {
 	for(let user of userList) {
 		tbody.innerHTML += `
 			<tr>
-				<td>${user.user_code}</td>
+				<td class="user-code-text">${user.user_code}</td>
 				<td>${user.user_id}</td>
 				<td>${user.user_password}</td>
 				<td>${user.user_name}</td>
 				<td>${user.user_email}</td>
-				<td>${user.user_phone}</td>
-				<td>${user.user_address}</td>
+				<td>
+					<span class="phone-text">${user.user_phone}</span>
+					<input type="text" class="phone-update-input visible" value="${user.user_phone}">
+				</td>
+				<td>
+					<span class="address-text">${user.user_address}</span>
+					<input type="text" class="address-update-input visible" value="${user.user_address}">
+				</td>
+				<td>
+					<button type="button" class="update-button">수정</button>
+					<button type="button" class="update-ok-button visible">확인</button>
+				</td>
 				<td><button type="button" class="delete-button">삭제</button></td>
 			</tr>
-		`
+		`;
+	}
+	
+	const updateButtons = document.querySelectorAll(".update-button");
+	
+	for(let i = 0; i <userList.lengh; i++) {
+		updateButtons[i].onclick = () => {
+			const phoneText = document.querySelectorAll(".phone-text")[i];
+			const addressText = document.querySelectorAll(".address-text")[i];
+			const phoneUpdateInput = document.querySelectorAll(".phone-update-input")[i];
+			const addressUpdateInput = document.querySelectorAll(".address-update-input")[i];
+			const updateOkButton = document.querySelectorAll("update-ok-button")[i];
+			
+			const userCodeText = document.querySelectorAll("user-code-text")[i].textContent;
+		
+			updateButtons[i].classList.toggle("visible");
+			phoneText.classList.toggle("visible");
+			addressText.classList.toggle("visible");
+			phoneUpdateInput.classList.toggle("visible");
+			addressUpdateInput.classList.toggle("visible");
+			updateOkButton.classList.toggle("visible");
+			
+			updateOkButton.onclick = () => {
+				$.ajax({
+					async: false,
+					type: "put",
+					url: "/api/v1/user",
+					data: {
+						userCode : userCodeText,
+						phone : phoneUpdateInput.value,
+						address : addressUpdateInput.value
+					},
+					dataType : "json",
+					success : (response) => {
+						alert("수정완료");
+						load();
+					},
+					error : (error) => {
+						console.log(error);
+					}
+				});
+			}
+		}
 	}
 }
 
@@ -72,7 +124,7 @@ function saveUser() {
 	$ajax({
 		async: false,
 		type: "post",
-		url: "/api/v1/user",
+		url: "/api/v1/user/update",
 		data: user,
 		dataType: "json",
 		success: (response) => {

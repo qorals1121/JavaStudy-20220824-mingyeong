@@ -53,7 +53,14 @@ public class UserApi extends HttpServlet {
 		response.getWriter().print(userService.addUser(user));
 	}
 	
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@Override
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userCode = request.getParameter("userCode");
+		String phone = request.getParameter("phone");
+		String address = request.getParameter("address");
+	}
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
 
