@@ -11,7 +11,7 @@ import javax.servlet.HttpConstraintElement;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
-@WebServlet("/service/test")
+@WebServlet("/service/test2")
 public class ServiceTestResrvlet extends HttpServlet
 {
 	
@@ -28,15 +28,15 @@ public class ServiceTestResrvlet extends HttpServlet
 		System.out.println("요청이 들어와서 서비스 실행");
 		System.out.println("요청 메소드 : " + req.getMethod());
 		getServletContext().setAttribute("servletApplicationData", "우리가 저장한 데이터");
-		doget(req, resp);
+		//doget(req, resp);
 	}
-	
-	@Override
-	protected void doget(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
-		System.out.println("get 요청");
-		System.out.println(getServletContext().getAttribute("servletApplicationData"));
-	}
-	
+//	
+//	@Override
+//	protected void doget(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
+//		System.out.println("get 요청");
+//		System.out.println(getServletContext().getAttribute("servletApplicationData"));
+//	}
+//	
 	@Override
 	public void destroy() {
 		super.destroy();

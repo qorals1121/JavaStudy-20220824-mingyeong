@@ -13,16 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.servlet.study.web.service.UserService;
 import com.servlet.study.web.service.UserServiceImpl;
 
-
 @WebServlet("/api/v1/user/management/users")
 public class UserManagementApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private UserService userService;
-       
 
     public UserManagementApi() {
-    	super();
+        super();
     }
     
     @Override
@@ -30,14 +28,13 @@ public class UserManagementApi extends HttpServlet {
     	userService = (UserServiceImpl) config.getServletContext().getAttribute("userService");
     }
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json; charset=utf-8");
 		
 		PrintWriter out = response.getWriter();
 		out.print(userService.getUserList());
 	}
-
-
-
 }
+
+
+

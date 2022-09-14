@@ -28,7 +28,7 @@ public class UserApi extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
     		userService = (UserService) config.getServletContext().getAttribute("userService");
-    	super.init();
+    	
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -52,16 +52,8 @@ public class UserApi extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		response.getWriter().print(userService.addUser(user));
 	}
+
 	
-	@Override
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userCode = request.getParameter("userCode");
-		String phone = request.getParameter("phone");
-		String address = request.getParameter("address");
-	}
-	
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
+
 
 }

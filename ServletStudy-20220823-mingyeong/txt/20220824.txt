@@ -4,3 +4,9 @@
 db에서는 == 없음!
 쿼리에서는 대소문자 구분안함 = 카멜이니셜x
 업데이트와 딜리트를 할 때는 where을 빼먹어서는 안된다
+
+herf : link, file 요청을 날릴 때
+src : image, data source, js 이미지, 스크립트 파일, 서블릿 링크 등을 가져올 때
+url : 주소 표기 (url은 /뒤 내용, ure는 풀네임)
+
+httpServletRequest는 geturl을 받을 수 잇지만 그냥 서블릿리퀘스트는 받을 수 없다.

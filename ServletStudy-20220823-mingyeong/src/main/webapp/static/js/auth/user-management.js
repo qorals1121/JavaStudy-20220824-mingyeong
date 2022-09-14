@@ -1,11 +1,11 @@
 /**
  * 
  */
- const addButton = document.querySelector(".add-button");
+const addButton = document.querySelector(".add-button");
+
+load();
  
- load();
- 
- function load() {
+function load() {
 	
 	$.ajax({
 		async: false,
@@ -20,8 +20,7 @@
 			console.log(error);
 		}
 	});
-	
-	
+		
 }
 
 function getUserList(userList) {
@@ -32,8 +31,8 @@ function getUserList(userList) {
 	for(let user of userList) {
 		tbody.innerHTML += `
 			<tr>
-				<td class="user-code-text">${user.user_code}</td>
-				<td>${user.user_id}</td>
+				<td class="usercode-text">${user.user_code}</td>
+				<td class="userid-text">${user.user_id}</td>
 				<td>${user.user_password}</td>
 				<td>${user.user_name}</td>
 				<td>${user.user_email}</td>
@@ -56,16 +55,16 @@ function getUserList(userList) {
 	
 	const updateButtons = document.querySelectorAll(".update-button");
 	
-	for(let i = 0; i <userList.lengh; i++) {
+	for(let i = 0; i < updateButtons.length; i++) {
 		updateButtons[i].onclick = () => {
 			const phoneText = document.querySelectorAll(".phone-text")[i];
 			const addressText = document.querySelectorAll(".address-text")[i];
 			const phoneUpdateInput = document.querySelectorAll(".phone-update-input")[i];
 			const addressUpdateInput = document.querySelectorAll(".address-update-input")[i];
-			const updateOkButton = document.querySelectorAll("update-ok-button")[i];
+			const updateOkButton = document.querySelectorAll(".update-ok-button")[i];
 			
-			const userCodeText = document.querySelectorAll("user-code-text")[i].textContent;
-		
+			const userCodeText = document.querySelectorAll(".usercode-text")[i].textContent;
+			
 			updateButtons[i].classList.toggle("visible");
 			phoneText.classList.toggle("visible");
 			addressText.classList.toggle("visible");
@@ -74,21 +73,49 @@ function getUserList(userList) {
 			updateOkButton.classList.toggle("visible");
 			
 			updateOkButton.onclick = () => {
+				
 				$.ajax({
 					async: false,
-					type: "put",
-					url: "/api/v1/user",
+					type: "post",
+					url: "/api/v1/user/update",
 					data: {
 						userCode : userCodeText,
 						phone : phoneUpdateInput.value,
 						address : addressUpdateInput.value
 					},
-					dataType : "json",
-					success : (response) => {
+					dataType: "json",
+					success: (response) => {
 						alert("수정완료");
 						load();
 					},
-					error : (error) => {
+					error: (error) => {
+						console.log(error);
+					}
+				});
+			}
+		}
+	}
+	
+	const deleteButtons = document.querySelectorAll(".delete-button");
+	
+	for(let i = 0; i < deleteButtons.length; i++) {
+		deleteButtons[i].onclick = () => {
+			const userCodeText = document.querySelectorAll(".usercode-text")[i].textContent;
+			const userIdText = document.querySelectorAll(".userid-text")[i].textContent;
+			
+			if(confirm(`${userIdText}을(를) 정말 지우시겠습니까?`)){
+				$.ajax({
+					async: false,
+					type: "post",
+					url: "/api/v1/user/delete",
+					data: {
+						userCode : userCodeText
+					},
+					dataType: "json",
+					success: (response) => {
+						load();
+					},
+					error: (error) => {
 						console.log(error);
 					}
 				});
@@ -100,47 +127,48 @@ function getUserList(userList) {
 
 addButton.onclick = () => {
 	if(checkSpaceUserInput()){
-		if(checkUserId()) {
+		if(checkUserId()){
 			alert("추가 가능");
-		
-		}else {
-			alert("아이디 중복으로 인해 추가 불가능");
+			saveUser();
+		}else{
+			alert("아이디 중복으로 인해 추가 불가능"); 
 		}
-		}else {
-			alert("공백 때문에 추가 불가능")
-		}
+	}else{
+		alert("공백 때문에 추가 불가능");
 	}
 	
-function saveUser() {
+}
+
+function saveUser(){
 	const userInputs = document.querySelectorAll(".user-input");
 	
 	const user = {
 		userId: userInputs[0].value,
 		userPassword: userInputs[1].value,
 		userName: userInputs[2].value,
-		userEmail: userInputs[3].value,
+		userEmail: userInputs[3].value
 	}
 	
-	$ajax({
+	$.ajax({
 		async: false,
 		type: "post",
-		url: "/api/v1/user/update",
+		url: "/api/v1/user",
 		data: user,
 		dataType: "json",
 		success: (response) => {
 			if(response.status) {
 				alert("추가 성공");
 				load();
-			}else {
+			}else{
 				alert("추가 실패");
 			}
 		},
 		error: (error) => {
 			console.log(error);
 		}
-	})
-}
+	});
 	
+}
 
 function checkUserId() {
 	const userId = document.querySelectorAll(".user-input")[0].value;
@@ -160,32 +188,32 @@ function checkUserId() {
 		error: (error) => {
 			console.log(error);
 		}
-		
 	});
 	
 	return result;
-	
 }
 
 function checkSpaceUserInput() {
 	const userInputs = document.querySelectorAll(".user-input");
-	let result = true;
+	let result = true;	
 	
-	
-		for(let input of userInputs) {
-			alert(input.value)
-			if(isEmpty(input.value)) {
-				alert("모든 값을 입력해주세요.");
-				return false;
-			}
+	for(let input of userInputs) {
+		if(isEmpty(input.value)) {
+			alert("모든 값을 입력해주세요.");
+			return false;
 		}
-		
-		return result;
 	}
-
-
+	
+	return result;
+}
 
 function isEmpty(str) {
-	return str == null || typeof str == undefined || str == "" || str.replace(" ", "") == "" || str.lengh == 0;
+	return str == null || typeof str == undefined || str == "" || str.replace(" ", "") == "" || str.length == 0;
 }
+
+
+
+
+
+
 

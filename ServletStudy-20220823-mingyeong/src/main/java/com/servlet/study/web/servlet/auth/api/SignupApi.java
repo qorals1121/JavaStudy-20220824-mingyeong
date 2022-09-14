@@ -1,3 +1,4 @@
+
 package com.servlet.study.web.servlet.auth.api;
 
 import java.io.IOException;
@@ -14,51 +15,33 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.servlet.study.web.dto.auth.SignupRequestDto;
 
-
-@WebServlet("/api/v1/auth/singin")
+@WebServlet("/api/v1/auth/signup")
 public class SignupApi extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
     public SignupApi() {
         super();
     }
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext context = request.getServletContext();
 		
-		String userJson = request.getParameter("userJson");
-
+		SignupRequestDto signupRequestDto = SignupRequestDto.builder()
+				.userId			(request.getParameter("userId"))
+				.userPassword	(request.getParameter("userPassword"))
+				.userName		(request.getParameter("userName"))
+				.userEmail		(request.getParameter("userEmail"))
+				.build();
+		
+		context.setAttribute("userData", signupRequestDto);
+		
+		System.out.println(signupRequestDto);
+		
 		Gson jsonUser = new GsonBuilder().setPrettyPrinting().create();
 		
-		JsonObject jsonObject = jsonUser.fromJson(userJson, JsonObject.class);
-		
-		String userId = jsonObject.get("userId").toString();
-		String userPassword = jsonObject.get("userPassword").toString();
-		
-		SignupRequestDto signupRequestDto = (SignupRequestDto) context.getAttribute("user");
-		
-		Gson responseData = new Gson();
-		JsonObject data = new JsonObject();
-		
-		if(signupRequestDto.getUserId().equals(userId)) {
-			if(signupRequestDto.getUserPassword().equals(userPassword)) {
-				System.out.println("로그인 인증 성공");
-				
-				data.addProperty("status", true);
-				
-				response.setContentType("application/json; charset=utf-8");
-				response.getWriter().print(jsonUser.toJson(signupRequestDto));
-				return;
-			}
-		}
-		
-		data.addProperty("status", false);
-		
 		response.setContentType("application/json; charset=utf-8");
-		response.getWriter().print(responseData.toJson(data));
-		return;
+		response.getWriter().print(jsonUser.toJson(signupRequestDto));
 	}
 
 }
+
